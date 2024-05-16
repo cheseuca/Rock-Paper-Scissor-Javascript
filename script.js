@@ -1,5 +1,3 @@
-//Pseudocode for the getComputerChoice
-
 function getComputerChoice() {
     //Computer will choose a random number between 1 and 3
     let randomNumber = Math.floor(Math.random() * 3) + 1;
@@ -18,7 +16,6 @@ function getComputerChoice() {
     }
 }
 
-//Pseudocode for humanChoice
 function getHumanChoice() {
     //humanChoice will choose rock, paper or scissor and it is not case sensitive
     let humanChoice = prompt("Enter rock, paper or scissor");
@@ -37,14 +34,6 @@ function getHumanChoice() {
     }
 }
 
-var humanScore = 0;
-var computerScore = 0;
-
-let humanChoice = getHumanChoice();
-let computerChoice = getComputerChoice();
-
-//Pseudocode for playRound
-
 function playRound(humanChoice, computerChoice) {
     //if humanChoice is equal to computerChoice, it will be a tie
     if (humanChoice == computerChoice) {
@@ -52,29 +41,67 @@ function playRound(humanChoice, computerChoice) {
     }
     //if humanChoice is rock and computerChoice is paper, computer wins and the computerScore will increment by one 
     else if (humanChoice == "rock" && computerChoice == "paper") {
-        computerScore++;
         return "Paper beats Rock, Computer wins!";
     }
     //if humanChoice is paper and computerChoice is scissor, computer wins and the computerScore will increment by one
     else if (humanChoice == "paper" && computerChoice == "scissor") {
-        computerScore++;
         return "Scissor beats Paper, Computer wins!";
     }
     //if humanChoice is scissor and computerChoice is rock, computer wins and the computerScore will increment by one
     else if (humanChoice == "scissor" && computerChoice == "rock") {
-        computerScore++;
         return "Rock beats Scissor, Computer wins!";
-    }else if (humanChoice == "paper" && computerChoice == "rock") {
-        humanScore++;
+    }
+    //humanChoice will also have the same logic as computerChoice or its vice versa one
+    else if (humanChoice == "paper" && computerChoice == "rock") {
         return "Paper beats Rock, User wins";
     }else if (humanChoice == "scissor" && computerChoice == "paper") {
-        humanScore++;
         return "Scissor beats Paper, User wins!";
     }else if (humanChoice == "rock" && computerChoice == "scissor") {
-        humanScore++;
         return "Rock beats Scissor, User wins!";
     }
 }
 
-//getHumanChoice (user) can type rock paper and scissor and computerChoice (computer) will get its input from getComputerChoice function
-console.log(playRound(humanChoice, computerChoice));
+function playGame(){
+    let humanScore = 0;
+    let computerScore = 0;
+    let round = 1;
+
+    //playGame will have 5 rounds and this uses for loops
+    for(let i = 1; i <= 5; i++){
+        let humanChoice = getHumanChoice();
+        let computerChoice = getComputerChoice();
+        let result = playRound(humanChoice, computerChoice);
+        console.log(result);
+
+        //if the user wins, the humanScore will increment by one
+        if(result.includes("User wins")){
+            humanScore++;
+        }
+        //if the computer wins, the computerScore will increment by one
+        else if(result.includes("Computer wins")){
+            computerScore++;
+        }
+
+        //After the 5th round, it will announce who is the winner and end the game
+        if(round === 5){
+            if(humanScore > computerScore){
+            alert("User wins the game!");
+            }else if(computerScore > humanScore){
+            alert("Computer wins the game!");
+            }else{
+            alert("It's a tie!");
+            }
+
+            //playGame will ask the user if they want to play again and if they do, it will call playGame again
+            let playAgain = confirm("Do you want to play again?");
+            if (playAgain) { 
+            playGame(); 
+            } else { 
+            alert("Thanks for playing!"); 
+            }
+        }
+        round++;
+    }
+}
+
+playGame();
