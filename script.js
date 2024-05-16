@@ -85,19 +85,19 @@ function playGame(){
         //After the 5th round, it will announce who is the winner and end the game
         if(round === 5){
             if(humanScore > computerScore){
-            alert("User wins the game!");
+                alert("User wins the game!");
             }else if(computerScore > humanScore){
-            alert("Computer wins the game!");
+                alert("Computer wins the game!");
             }else{
-            alert("It's a tie!");
+                alert("It's a tie!");
             }
 
             //playGame will ask the user if they want to play again and if they do, it will call playGame again
             let playAgain = confirm("Do you want to play again?");
             if (playAgain) { 
-            playGame(); 
+                playGame(); 
             } else { 
-            alert("Thanks for playing!"); 
+                alert("Thanks for playing!"); 
             }
         }
         round++;
