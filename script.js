@@ -1,24 +1,52 @@
+
+const showComputerChoice = document.querySelector("#computerChoice");
+const myHumanChoice = document.querySelector("#choice");
+const showChoice = document.querySelector("#playerChoice");
+const showHumanPoints = document.querySelector("#humanPoints");
+const showComputerPoints = document.querySelector("#computerPoints");
+const showFinalResult = document.querySelector("#finalResult");
+
 function getComputerChoice() {
     //Computer will choose a random number between 1 and 3
     let randomNumber = Math.floor(Math.random() * 3) + 1;
 
-    //If computer chooses 1, it will be rock
+    //Computer's random number will be converted to rock, paper or scissor
     if (randomNumber == 1) {
         return "rock";
     }
-    //if computer chooses 2, it will be paper
     else if (randomNumber == 2) {
         return "paper";
     }
-    //if computer chooses 3, it will be scissor
     else {
         return "scissor";
     }
 }
 
+myHumanChoice.addEventListener("click", (event) => {
+    let choice = event.target.id;
+
+    switch (choice) {
+        case "rock":
+            myHumanChoice.value = "rock";
+            break;
+        case "paper":
+            myHumanChoice.value = "paper";
+            break;
+        case "scissor":
+            myHumanChoice.value = "scissor";
+        break;
+        default:
+            myHumanChoice.value = null;
+    }
+
+    console.log(getHumanChoice());
+    showComputerChoice.textContent = getComputerChoice();
+    showChoice.textContent = getHumanChoice();
+});
+
 function getHumanChoice() {
     //humanChoice will choose rock, paper or scissor and it is not case sensitive
-    let humanChoice = prompt("Enter rock, paper or scissor");
+    let humanChoice = myHumanChoice.value;
 
     //if humanChoice is not rock, paper or scissor, it will prompt the user to enter a valid input
     if (humanChoice === null) {
@@ -35,23 +63,19 @@ function getHumanChoice() {
 }
 
 function playRound(humanChoice, computerChoice) {
-    //if humanChoice is equal to computerChoice, it will be a tie
+    //humanChoice vs computerChoice logic flow
     if (humanChoice == computerChoice) {
         return "Tie";
     }
-    //if humanChoice is rock and computerChoice is paper, computer wins and the computerScore will increment by one 
     else if (humanChoice == "rock" && computerChoice == "paper") {
         return "Paper beats Rock, Computer wins!";
     }
-    //if humanChoice is paper and computerChoice is scissor, computer wins and the computerScore will increment by one
     else if (humanChoice == "paper" && computerChoice == "scissor") {
         return "Scissor beats Paper, Computer wins!";
     }
-    //if humanChoice is scissor and computerChoice is rock, computer wins and the computerScore will increment by one
     else if (humanChoice == "scissor" && computerChoice == "rock") {
         return "Rock beats Scissor, Computer wins!";
     }
-    //humanChoice will also have the same logic as computerChoice or its vice versa one
     else if (humanChoice == "paper" && computerChoice == "rock") {
         return "Paper beats Rock, User wins";
     }else if (humanChoice == "scissor" && computerChoice == "paper") {
