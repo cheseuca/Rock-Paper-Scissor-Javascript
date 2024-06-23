@@ -8,24 +8,6 @@ const showFinalResult = document.querySelector("#finalResult");
 const showRoundResult = document.querySelector("#roundResult");
 const newRound = document.querySelector("#newRound");
 
-showComputerChoice.textContent = '';
-showPlayerChoice.textContent = '';
-showRoundResult.textContent = '';
-
-const askPlayer = document.createElement("h3");
-askPlayer.textContent = "Do you want to play again?";
-const newGame = document.createElement("button");
-newGame.textContent = "Yes";
-const endGame = document.createElement("button");
-endGame.textContent = "No";
-
-newRound.appendChild(askPlayer);
-newRound.appendChild(newGame);
-newRound.appendChild(endGame);
-
-askPlayer.style.display = "none";
-newGame.style.display = "none";
-endGame.style.display = "none";
 
 let humanScore = 0;
 showHumanPoints.textContent = `Player:  ${humanScore}`;
@@ -130,31 +112,27 @@ function playRound(humanChoice, computerChoice) {
 
 function playGame(){
     //playGame will have 5 rounds
-    if(round === 5){
-        if(humanScore > computerScore){
+    if (round === 5) {
+        if (humanScore > computerScore) {
             showFinalResult.textContent = "User wins the game!";
-        }else if(computerScore > humanScore){
+        } else if (computerScore > humanScore) {
             showFinalResult.textContent = "Computer wins the game!";
-        }else if(humanScore == computerScore){
+        } else if (humanScore == computerScore) {
             showFinalResult.textContent = "It's a tie!";
         }
-
-        askPlayer.style.display = "block";
-        newGame.style.display = "block";
-        endGame.style.display = "block";
-
-        //This will ask the user if they want to play again and if they do, it will call playGame again
-        newGame.addEventListener("click", () => {
-            resetGame();
-            playGame();
-        },{once: true});
-        endGame.addEventListener("click", () => {
-            newRound.textContent = "Thanks for Playing!";
-        },{once: true});
+        // Disable the button after 5 rounds
+        disableAllButtons();
+        // This line is a placeholder for asking the player to play the game again
+        newRound.textContent = "Refresh the Page to Play Again!";
     }
 }
 
-function resetGame() {
+function disableAllButtons() {
+    const allButtons = document.querySelectorAll("button");
+    allButtons.forEach(button => button.disabled = true);
+}
+
+/*function resetGame() {
     humanScore = 0;
     computerScore = 0;
     round = 0;
@@ -162,10 +140,10 @@ function resetGame() {
     showComputerChoice.textContent = '';
     showPlayerChoice.textContent = '';
     showRoundResult.textContent = '';
-}
+}*/
 
 function updateScores() {
-    showHumanPoints.textContent = `Player: ${humanScore}`;
-    showComputerPoints.textContent = `Computer: ${computerScore}`;
+    showHumanPoints.textContent = humanScore;
+    showComputerPoints.textContent = computerScore;
 }
 updateScores();
